@@ -11,6 +11,22 @@ import { Button } from "../../components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../components/ui/card"
 import { motion } from 'framer-motion'
 
+const values = [
+  { icon: <ThumbsUp className="h-10 w-10" />, title: 'Customer Success', description: "'We prioritize our customers' success above all else, ensuring they achieve their hiring goals efficiently.' "},
+  { icon: <Rocket className="h-10 w-10" />, title: 'Innovation', description: "'We constantly push the boundaries of what's possible in recruitment technology.' "},
+  { icon: <Layers className="h-10 w-10" />, title: 'Simplicity', description: "'We believe in making complex processes simple and user-friendly.' "},
+  { icon: <Eye className="h-10 w-10" />, title: 'Transparency', description: "'We maintain open and honest communication with our clients and within our team.' "},
+  { icon: <Users className="h-10 w-10" />, title: 'Inclusivity', description: "'We champion diversity and ensure our tools promote fair and unbiased hiring.' "},
+  { icon: <Shield className="h-10 w-10" />, title: 'Security', description: "'We prioritize the protection of our clients' data and maintain the highest security standards.' "},
+]
+
+const journey = [
+  { date: 'Aug 2021', title: 'IDC Names Arctic Wolf a Leader', icon: <ChartBar />, description: 'Our journey began with a vision to revolutionize the hiring process.' },
+  { date: 'Feb 2022', title: 'Arctic Wolf Incident Launch', icon: <Settings />, description: 'We introduced our groundbreaking AI-powered assessment tools.' },
+  { date: 'Oct 2022', title: 'Arctic Wolf Expands to ANZ', icon: <Cpu />, description: 'Our solutions went global, entering key European markets.' },
+  { date: 'May 2023', title: 'Arctic Wolf on CNBC Disruptor 50', icon: <Award />, description: 'Recognition of our innovative approach to recruitment technology.' },
+]
+
 export default function AboutPage() {
   return (
     <div className="flex flex-col min-h-[100dvh] bg-white text-zinc-900">
@@ -547,7 +563,7 @@ export default function AboutPage() {
         </section>
       </main>
 
-      {/* Replace the existing footer with this new one */}
+      {/* Create footer */}
       <footer className="bg-[#000000] border-t py-12 mt-auto">
         <div className="container px-4 mx-auto max-w-7xl">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
