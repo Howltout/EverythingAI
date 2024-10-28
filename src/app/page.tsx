@@ -4,8 +4,6 @@ import Image from 'next/image'
 import { ChevronRight, ThumbsUp, Rocket, Layers, Eye, Users, Shield, ChartBar, Settings, Cpu, Award } from 'lucide-react'
 import { Button } from "../../components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "../../components/ui/avatar"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../../components/ui/tooltip"
 import { motion } from 'framer-motion'
 
 const values = [
