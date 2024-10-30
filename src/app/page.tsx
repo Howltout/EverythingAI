@@ -2,14 +2,14 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/no-unescaped-entities */
-
+  
 'use client'
 
 import Image from 'next/image'
 import { ChevronRight, ThumbsUp, Rocket, Layers, Eye, Users, Shield, ChartBar, Settings, Cpu, Award } from 'lucide-react'
 import { Button } from "../../components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../components/ui/card"
-import { motion } from 'framer-motion'
+import { motion, useScroll, useSpring } from 'framer-motion'
 
 const values = [
   { icon: <ThumbsUp className="h-10 w-10" />, title: 'Customer Success', description: "'We prioritize our customers' success above all else, ensuring they achieve their hiring goals efficiently.' "},
@@ -27,7 +27,53 @@ const journey = [
   { date: 'May 2023', title: 'Arctic Wolf on CNBC Disruptor 50', icon: <Award />, description: 'Recognition of our innovative approach to recruitment technology.' },
 ]
 
+// Add this experts array before your component
+const experts = [
+  { name: "Sarah Johnson", role: "Chief Technology Officer" },
+  { name: "Michael Chen", role: "Head of AI Research" },
+  { name: "Emily Rodriguez", role: "Lead Product Designer" },
+  { name: "David Kim", role: "Senior Data Scientist" },
+  { name: "Lisa Thompson", role: "UX Research Lead" },
+  { name: "James Wilson", role: "Engineering Manager" },
+  { name: "Anna Martinez", role: "Cloud Architecture Lead" },
+  { name: "Robert Lee", role: "Security Specialist" },
+  { name: "Sophie Turner", role: "Frontend Developer" },
+  { name: "Marcus Brown", role: "Backend Engineer" },
+  { name: "Elena Costa", role: "ML Engineer" },
+  { name: "Alex Wong", role: "DevOps Lead" },
+  { name: "Rachel Green", role: "UI/UX Designer" },
+  { name: "Chris Taylor", role: "System Architect" },
+  { name: "Maria Garcia", role: "Data Engineer" },
+  { name: "Tom Anderson", role: "Quality Assurance Lead" }
+];
+
+const positions = [
+  { left: '50%', top: '5%' },     // Top center
+  { left: '35%', top: '20%' },    // Second row left
+  { left: '65%', top: '20%' },    // Second row right
+  { left: '20%', top: '35%' },    // Third row far left
+  { left: '50%', top: '35%' },    // Third row center
+  { left: '80%', top: '35%' },    // Third row far right
+  { left: '10%', top: '50%' },    // Fourth row leftmost
+  { left: '35%', top: '50%' },    // Fourth row left-center
+  { left: '65%', top: '50%' },    // Fourth row right-center
+  { left: '90%', top: '50%' },    // Fourth row rightmost
+  { left: '20%', top: '65%' },    // Fifth row left
+  { left: '50%', top: '65%' },    // Fifth row center
+  { left: '80%', top: '65%' },    // Fifth row right
+  { left: '35%', top: '80%' },    // Bottom row left
+  { left: '65%', top: '80%' },    // Bottom row right
+  { left: '50%', top: '95%' },    // Bottom center
+];
+
 export default function AboutPage() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
   return (
     <div className="flex flex-col min-h-[100dvh] bg-white text-zinc-900">
       <header role="banner" className="sticky inset-x-0 w-full top-0 z-50 border-b backdrop-blur bg-white">
@@ -137,14 +183,29 @@ export default function AboutPage() {
 
         <section id="our-story" className="py-14 md:py-24 bg-gray-50 flex items-center justify-center">
           <div className="container px-4 max-w-7xl mx-auto">
-            <div className="text-center mb-12">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-center mb-12"
+            >
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-zinc-900">Our Story</h2>
               <p className="text-xl text-zinc-600 mb-4 max-w-2xl mx-auto">
                 We not only make the world's most comfortable hammocks, but through training and sustainable job creation, we empower our weavers and their families to break the cycle of poverty and build a brighter future.
               </p>
-            </div>
+            </motion.div>
             {['The Journey to Transform Recruitment', 'Combining Innovation with Efficiency', 'Democratizing Recruitment Tools'].map((title, index) => (
-              <div key={index}>
+              <motion.div 
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 1,
+                  delay: index * 0.2,
+                  ease: [0.25, 0.1, 0.25, 1]
+                }}
+                viewport={{ once: true }}
+              >
                 <Card className="mt-12 bg-white shadow-sm">
                   <CardContent className="p-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
@@ -168,7 +229,7 @@ export default function AboutPage() {
                     </div>
                   </CardContent>
                 </Card>
-              </div>
+              </motion.div>
             ))}
           </div>
         </section>
@@ -299,200 +360,184 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section id="our-team" className="py-14 md:py-24 bg-gray-50 flex items-center justify-center">
-          <div className="container px-4 mx-auto max-w-[1800px]">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-zinc-900">Our Experts Team</h2>
-              <p className="text-xl text-zinc-600 mb-4 max-w-[1400px] mx-auto leading-relaxed"> {/* Increased max-width and adjusted line height */}
-                At Everything Talent, our innovative team develops AI-driven assessments and an advanced ATS to modernize hiring. 
-                We focus on reducing bias, making recruitment efficient, and providing accessible tools for companies of all sizes to attract top talent.
+        <section id="our-experts" className="py-16 bg-gradient-to-b from-white via-gray-50 to-white">
+          <div className="container mx-auto px-4 max-w-7xl">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl mb-4">
+                Our Expert Team
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Meet the talented individuals behind our success
               </p>
-            </div>
-            
-            {/* Diamond Pattern Layout */}
-            <div className="flex flex-col items-center gap-8">
-              {/* Row 1 - 1 member */}
-              <div className="flex gap-36"> {/* Increased horizontal gap to 36 (144px) */}
-                <Image
-                  src="https://i.pravatar.cc/300?img=1"
-                  width={100}
-                  height={100}
-                  alt="Team Member"
-                  className="rounded-full"
-                />
+            </motion.div>
+
+            <div className="flex flex-col gap-16">
+              {/* First Row - 5 images */}
+              <div className="flex justify-center gap-16">
+                {experts.slice(0, 5).map((expert, index) => (
+                  <motion.div
+                    key={`top-${index}`}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ 
+                      duration: 0.5,
+                      delay: index * 0.1
+                    }}
+                    className="w-[120px]"
+                  >
+                    <div className="relative aspect-square rounded-full overflow-hidden bg-gray-100 hover:shadow-lg transition-shadow duration-300">
+                      <Image
+                        src="/dummy-man-570x570-1.png"
+                        alt={expert.name}
+                        width={240}
+                        height={240}
+                        className="w-full h-full object-cover"
+                      />
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        whileHover={{ opacity: 1 }}
+                        className="absolute inset-0 bg-black/60 flex items-center justify-center"
+                      >
+                        <p className="text-white text-sm text-center px-2">
+                          {expert.name}
+                        </p>
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
-              
-              {/* Row 2 - 2 members */}
-              <div className="flex gap-36">
-                <Image
-                  src="https://i.pravatar.cc/300?img=1"
-                  width={100}
-                  height={100}
-                  alt="Team Member"
-                  className="rounded-full"
-                />
-                <Image
-                  src="https://i.pravatar.cc/300?img=1"
-                  width={100}
-                  height={100}
-                  alt="Team Member"
-                  className="rounded-full"
-                />
+
+              {/* Middle Row - 6 images, extended */}
+              <div className="flex justify-center gap-16 -mx-24">
+                {experts.slice(5, 11).map((expert, index) => (
+                  <motion.div
+                    key={`middle-${index}`}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ 
+                      duration: 0.5,
+                      delay: (index + 5) * 0.1
+                    }}
+                    className="w-[120px]"
+                  >
+                    <div className="relative aspect-square rounded-full overflow-hidden bg-gray-100 hover:shadow-lg transition-shadow duration-300">
+                      <Image
+                        src="/dummy-man-570x570-1.png"
+                        alt={expert.name}
+                        width={240}
+                        height={240}
+                        className="w-full h-full object-cover"
+                      />
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        whileHover={{ opacity: 1 }}
+                        className="absolute inset-0 bg-black/60 flex items-center justify-center"
+                      >
+                        <p className="text-white text-sm text-center px-2">
+                          {expert.name}
+                        </p>
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
-              
-              {/* Row 3 - 3 members */}
-              <div className="flex gap-36">
-                <Image
-                  src="https://i.pravatar.cc/300?img=1"
-                  width={100}
-                  height={100}
-                  alt="Team Member"
-                  className="rounded-full"
-                />
-                <Image
-                  src="https://i.pravatar.cc/300?img=1"
-                  width={100}
-                  height={100}
-                  alt="Team Member"
-                  className="rounded-full"
-                />
-                <Image
-                  src="https://i.pravatar.cc/300?img=1"
-                  width={100}
-                  height={100}
-                  alt="Team Member"
-                  className="rounded-full"
-                />
-              </div>
-              
-              {/* Row 4 - 4 members */}
-              <div className="flex gap-36">
-                <Image
-                  src="https://i.pravatar.cc/300?img=1"
-                  width={100}
-                  height={100}
-                  alt="Team Member"
-                  className="rounded-full"
-                />
-                <Image
-                  src="https://i.pravatar.cc/300?img=1"
-                  width={100}
-                  height={100}
-                  alt="Team Member"
-                  className="rounded-full"
-                />
-                <Image
-                  src="https://i.pravatar.cc/300?img=1"
-                  width={100}
-                  height={100}
-                  alt="Team Member"
-                  className="rounded-full"
-                />
-                <Image
-                  src="https://i.pravatar.cc/300?img=1"
-                  width={100}
-                  height={100}
-                  alt="Team Member"
-                  className="rounded-full"
-                />
-              </div>
-              
-              {/* Row 3 - 3 members */}
-              <div className="flex gap-36">
-                <Image
-                  src="https://i.pravatar.cc/300?img=1"
-                  width={100}
-                  height={100}
-                  alt="Team Member"
-                  className="rounded-full"
-                />
-                <Image
-                  src="https://i.pravatar.cc/300?img=1"
-                  width={100}
-                  height={100}
-                  alt="Team Member"
-                  className="rounded-full"
-                />
-                <Image
-                  src="https://i.pravatar.cc/300?img=1"
-                  width={100}
-                  height={100}
-                  alt="Team Member"
-                  className="rounded-full"
-                />
-              </div>
-              
-              {/* Row 2 - 2 members */}
-              <div className="flex gap-36">
-                <Image
-                  src="https://i.pravatar.cc/300?img=1"
-                  width={100}
-                  height={100}
-                  alt="Team Member"
-                  className="rounded-full"
-                />
-                <Image
-                  src="https://i.pravatar.cc/300?img=1"
-                  width={100}
-                  height={100}
-                  alt="Team Member"
-                  className="rounded-full"
-                />
-              </div>
-              
-              {/* Row 1 - 1 member */}
-              <div className="flex gap-36">
-                <Image
-                  src="https://i.pravatar.cc/300?img=1"
-                  width={100}
-                  height={100}
-                  alt="Team Member"
-                  className="rounded-full"
-                />
+
+              {/* Bottom Row - 5 images */}
+              <div className="flex justify-center gap-16">
+                {experts.slice(11, 16).map((expert, index) => (
+                  <motion.div
+                    key={`bottom-${index}`}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ 
+                      duration: 0.5,
+                      delay: (index + 11) * 0.1
+                    }}
+                    className="w-[120px]"
+                  >
+                    <div className="relative aspect-square rounded-full overflow-hidden bg-gray-100 hover:shadow-lg transition-shadow duration-300">
+                      <Image
+                        src="/dummy-man-570x570-1.png"
+                        alt={expert.name}
+                        width={240}
+                        height={240}
+                        className="w-full h-full object-cover"
+                      />
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        whileHover={{ opacity: 1 }}
+                        className="absolute inset-0 bg-black/60 flex items-center justify-center"
+                      >
+                        <p className="text-white text-sm text-center px-2">
+                          {expert.name}
+                        </p>
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
             </div>
           </div>
         </section>
-        
+
         {/* Our Culture Section */}
         <section className="py-12 bg-white flex items-center justify-center">
           <div className="container px-4 mx-auto max-w-7xl">
-            <div className="mb-12">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="mb-12"
+            >
               <Card className="max-w-3xl mx-auto bg-white shadow-sm">
                 <CardHeader>
-                  <CardTitle className="text-2xl font-bold tracking-tighter mb-3 text-left"> {/* Reduced from text-3xl/4xl/5xl to text-2xl */}
+                  <CardTitle className="text-2xl font-bold tracking-tighter mb-3 text-left">
                     Our Culture
                   </CardTitle>
-                  <CardDescription className="text-base text-zinc-600 text-left"> {/* Reduced from text-xl to text-base */}
+                  <CardDescription className="text-base text-zinc-600 text-left">
                     We believe in fostering a culture of innovation, collaboration, and continuous learning. Our team members are empowered to think creatively, take initiative, and make a real impact in transforming the recruitment landscape.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div>
-                      <h3 className="text-lg font-semibold mb-2 text-left"> {/* Reduced from text-xl to text-lg */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ 
+                        duration: 0.8,
+                        ease: [0.25, 0.1, 0.25, 1],
+                        delay: 0.2
+                      }}
+                    >
+                      <h3 className="text-lg font-semibold mb-2 text-left">
                         Innovation at Our Core
                       </h3>
-                      <p className="text-sm text-zinc-600 text-left"> {/* Reduced to text-sm */}
-                        We encourage bold thinking and creative problem-solving to develop cutting-edge recruitment solutions.
-                      </p>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold mb-2 text-left">
-                        Collaborative Environment
-                      </h3>
                       <p className="text-sm text-zinc-600 text-left">
-                        Our team thrives on open communication, knowledge sharing, and mutual support.
+                        We encourage creative thinking and embrace new technologies.
                       </p>
-                    </div>
-                    <div>
+                    </motion.div>
+
+                    <motion.div
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ 
+                        duration: 0.8,
+                        ease: [0.25, 0.1, 0.25, 1],
+                        delay: 0.4
+                      }}
+                    >
                       <h3 className="text-lg font-semibold mb-2 text-left">
                         Growth Mindset
                       </h3>
                       <p className="text-sm text-zinc-600 text-left">
                         We invest in our team's professional development and celebrate continuous learning.
                       </p>
-                    </div>
+                    </motion.div>
                   </div>
                 </CardContent>
                 <CardFooter>
@@ -501,7 +546,7 @@ export default function AboutPage() {
                   </Button>
                 </CardFooter>
               </Card>
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -647,6 +692,67 @@ export default function AboutPage() {
           </div>
         </div>
       </footer>
+
+      {/* Add a floating scroll progress bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-blue-600 z-50 origin-left"
+        style={{ scaleX }}
+      />
+
+      {/* Add smooth parallax to hero section */}
+      <motion.div
+        style={{
+          y: scrollY
+        }}
+        className="relative h-screen"
+      >
+        {/* Hero content */}
+      </motion.div>
+
+      {/* Add text reveal animations */}
+      <motion.h1
+        initial={{ clipPath: "inset(100% 0% 0% 0%)" }}
+        whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
+        transition={{ duration: 0.8 }}
+      >
+        Your Heading
+      </motion.h1>
+
+      {/* Add card hover effects */}
+      <motion.div
+        whileHover={{ 
+          scale: 1.02,
+          boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.1)"
+        }}
+        transition={{ type: "spring", stiffness: 300 }}
+      >
+        {/* Card content */}
+      </motion.div>
     </div>
   )
 }
+
+// Separate component for team member card
+const TeamMember = ({ expert }) => (
+  <div className="group">
+    <div className="relative aspect-square rounded-lg overflow-hidden bg-gray-100">
+      <Image
+        src="/dummy-man-570x570-1.png"
+        alt={expert.name}
+        width={200}
+        height={200}
+        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+      />
+      <motion.div 
+        initial={{ opacity: 0 }}
+        whileHover={{ opacity: 1 }}
+        className="absolute inset-0 bg-black/60 flex items-center justify-center"
+      >
+        <div className="text-center p-1">
+          <p className="text-white text-xs font-medium line-clamp-1">{expert.name}</p>
+          <p className="text-gray-200 text-[10px] line-clamp-1">{expert.role}</p>
+        </div>
+      </motion.div>
+    </div>
+  </div>
+);
