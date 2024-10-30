@@ -702,7 +702,7 @@ export default function AboutPage() {
       {/* Add smooth parallax to hero section */}
       <motion.div
         style={{
-          y: scrollY
+          y: scrollYProgress
         }}
         className="relative h-screen"
       >
@@ -733,7 +733,7 @@ export default function AboutPage() {
 }
 
 // Separate component for team member card
-const TeamMember = ({ expert }) => (
+const TeamMember = ({ expert }: { expert: { name: string; role: string } }) => (
   <div className="group">
     <div className="relative aspect-square rounded-lg overflow-hidden bg-gray-100">
       <Image
