@@ -609,7 +609,7 @@ export default function AboutPage() {
       </main>
 
       {/* Create footer */}
-      <footer className="bg-[#000000] border-t py-12 mt-auto">
+      <footer className="bg-[#000000] border-t py-12">
         <div className="container px-4 mx-auto max-w-7xl">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
             {/* Company Info */}
@@ -698,36 +698,6 @@ export default function AboutPage() {
         className="fixed top-0 left-0 right-0 h-1 bg-blue-600 z-50 origin-left"
         style={{ scaleX }}
       />
-
-      {/* Add smooth parallax to hero section */}
-      <motion.div
-        style={{
-          y: scrollYProgress
-        }}
-        className="relative h-screen"
-      >
-        {/* Hero content */}
-      </motion.div>
-
-      {/* Add text reveal animations */}
-      <motion.h1
-        initial={{ clipPath: "inset(100% 0% 0% 0%)" }}
-        whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
-        transition={{ duration: 0.8 }}
-      >
-        Your Heading
-      </motion.h1>
-
-      {/* Add card hover effects */}
-      <motion.div
-        whileHover={{ 
-          scale: 1.02,
-          boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.1)"
-        }}
-        transition={{ type: "spring", stiffness: 300 }}
-      >
-        {/* Card content */}
-      </motion.div>
     </div>
   )
 }
