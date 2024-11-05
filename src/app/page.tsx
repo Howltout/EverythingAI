@@ -6,7 +6,7 @@
 'use client'
 
 import Image from 'next/image'
-import { ChevronRight, ThumbsUp, Rocket, Layers, Eye, Users, Shield, ChartBar, Settings, Cpu, Award } from 'lucide-react'
+import { ChevronRight, ThumbsUp, Rocket, Layers, Eye, Users, Shield, ChartBar, Settings, Cpu, Award, Heart, Globe } from 'lucide-react'
 import { Button } from "../../components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../components/ui/card"
 import { motion, useScroll, useSpring } from 'framer-motion'
@@ -18,6 +18,8 @@ const values = [
   { icon: <Eye className="h-10 w-10" />, title: 'Transparency', description: "'We maintain open and honest communication with our clients and within our team.' "},
   { icon: <Users className="h-10 w-10" />, title: 'Inclusivity', description: "'We champion diversity and ensure our tools promote fair and unbiased hiring.' "},
   { icon: <Shield className="h-10 w-10" />, title: 'Security', description: "'We prioritize the protection of our clients' data and maintain the highest security standards.' "},
+  { icon: <Heart className="h-10 w-10" />, title: 'Empathy', description: "We understand the challenges of hiring and strive to create compassionate solutions." },
+  { icon: <Globe className="h-10 w-10" />, title: 'Global Impact', description: "We aim to transform recruitment practices worldwide, fostering better workplaces." },
 ]
 
 const journey = [
@@ -125,7 +127,7 @@ export default function AboutPage() {
             {/* Login Button */}
             <div className="ml-6 hidden lg:block">
               <a className="w-full" href="/login">
-                <button className="inline-flex items-center justify-center text-sm font-medium bg-gradient-to-b from-blue-500 to-blue-600 text-white h-10 px-4 py-2 rounded group w-full">
+                <button className="inline-flex items-center justify-center text-sm font-medium bg-gradient-to-r from-purple-500 via-blue-500 to-yellow-500 hover:opacity-90 text-white h-10 px-4 py-2 rounded-lg group w-full transition-all duration-300 hover:scale-105">
                   Login
                   <svg className="ml-2 -mr-1 w-5 h-5 group-hover:translate-x-1 transition" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
@@ -145,43 +147,157 @@ export default function AboutPage() {
       </header>
 
       {/* Add ref to main content for animations */}
-      <main role="main">
+      <main role="main" className="bg-gradient-to-b from-white via-purple-50/30 to-yellow-50/30">
         {/* Hero Section - updated styling and layout */}
-        <section className="bg-white py-20 md:py-22 flex items-center justify-center min-h-[80vh]" aria-label="Hero">
-          <div className="md:container px-4 sm:px-6 text-zinc-900 relative max-w-7xl mx-auto">
-            <div className="flex flex-col-reverse md:flex-row items-center justify-between lg:gap-0 md:gap-12">
-              <div>
-                <p className="text-transparent bg-clip-text bg-[linear-gradient(to_right,_#000_0%,_#3c3cbf_50%)] font-bold text-[2.2rem] lg:text-7xl md:mr-12 md:mt-0 text-center md:w-full mt-12 md:text-left">
-                  Everything Talent simplifies hiring with a free ATS and AI-driven assessments.
+        <section className="relative overflow-hidden bg-gradient-to-br from-purple-50/50 via-white to-yellow-50/50 py-20 md:py-32">
+          {/* Animated background elements */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+            <motion.div
+              className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-conic from-purple-100/40 via-blue-100/40 to-yellow-100/40 rounded-full blur-3xl"
+              animate={{
+                rotate: 360,
+              }}
+              transition={{
+                duration: 20,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            ></motion.div>
+            <motion.div
+              className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-conic from-yellow-100/40 via-purple-100/40 to-blue-100/40 rounded-full blur-3xl"
+              animate={{
+                rotate: -360,
+              }}
+              transition={{
+                duration: 25,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            ></motion.div>
+          </div>
+
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                className="text-center md:text-left"
+              >
+                <h1 className="text-[3.5rem] md:text-[5rem] font-bold leading-tight tracking-tight mb-8">
+                  <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-yellow-500 bg-clip-text text-transparent">
+                    Revolutionizing
+                    <br />
+                    Talent Acquisition
+                  </span>
+                </h1>
+                <p className="text-xl text-gray-600 max-w-2xl mb-10 leading-relaxed">
+                  Everything Talent simplifies hiring with AI-driven assessments and a free ATS, empowering businesses to find the perfect match effortlessly.
                 </p>
-              </div>
-              <div className="md:mr-[70px] min-w-80">
-                <div className="relative flex justify-center lg:flex-col mb-8 md:mb-0">
-                  <Image
-                    //src="../../public/about1.webp?height=400&width=400"
-                    src="/about1.webp"
-                    alt="Everything Talent simplifies hiring"
-                    width={400}
-                    height={400}
-                    priority
-                    className="rotate-45 w-48 h-48 border-[3px] dark:border-[#3577f39a] lg:w-80 lg:h-80 object-cover"
-                  />
-                  <Image
-                    //src="/placeholder.svg?height=300&width=300"
-                    src="/about2.webp"
-                    alt="AI-driven assessments"
-                    width={300}
-                    height={300}
-                    priority
-                    className="hidden md:block -mt-16 rotate-45 border dark:border-[#3577f39a] w-48 h-48 lg:w-80 lg:h-80 object-cover"
-                  />
+                <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                  <Button 
+                    size="lg" 
+                    className="bg-gradient-to-r from-purple-600 via-blue-600 to-yellow-500 hover:opacity-90 text-white group px-8 py-6 text-lg transition-all duration-300 hover:scale-105"
+                  >
+                    Get Started
+                    <ChevronRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition" />
+                  </Button>
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="border-2 border-purple-500 hover:border-yellow-500 hover:text-yellow-600 px-8 py-6 text-lg transition-all duration-300"
+                  >
+                    Learn More
+                  </Button>
                 </div>
-              </div>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="relative"
+              >
+                <Card className="relative bg-background/80 backdrop-blur-sm border-none shadow-xl overflow-hidden">
+                  <CardContent className="p-6">
+                    <div className="grid grid-cols-2 gap-6">
+                      <Image
+                        src="/placeholder_landscape.svg"
+                        alt="AI-Powered Hiring"
+                        width={200}
+                        height={200}
+                        className="rounded-lg object-cover w-full h-full"
+                      />
+                      <Image
+                        src="/placeholder_landscape.svg"
+                        alt="Talent Matching"
+                        width={200}
+                        height={200}
+                        className="rounded-lg object-cover w-full h-full"
+                      />
+                      <Image
+                        src="/placeholder_landscape.svg"
+                        alt="Diverse Workforce"
+                        width={200}
+                        height={200}
+                        className="rounded-lg object-cover w-full h-full"
+                      />
+                      <Image
+                        src="/placeholder_landscape.svg"
+                        alt="Data-Driven Insights"
+                        width={200}
+                        height={200}
+                        className="rounded-lg object-cover w-full h-full"
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
             </div>
           </div>
+
+          <style jsx>{`
+            .bg-grid-pattern {
+              background-image: 
+                linear-gradient(to right, rgba(147, 51, 234, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(147, 51, 234, 0.05) 1px, transparent 1px);
+              background-size: 50px 50px;
+            }
+
+            @keyframes float {
+              0% { transform: translateY(0px); }
+              50% { transform: translateY(-20px); }
+              100% { transform: translateY(0px); }
+            }
+
+            .floating {
+              animation: float 6s ease-in-out infinite;
+            }
+
+            .gradient-text {
+              background: linear-gradient(to right, #9333ea, #3b82f6, #eab308);
+              -webkit-background-clip: text;
+              color: transparent;
+            }
+            
+            .gradient-border {
+              border-image: linear-gradient(to right, #9333ea, #3b82f6, #eab308) 1;
+            }
+            
+            .gradient-hover {
+              background-size: 200% 100%;
+              background-position: 100% 0;
+              transition: background-position .5s;
+            }
+            
+            .gradient-hover:hover {
+              background-position: 0 0;
+            }
+          `}</style>
         </section>
 
-        <section id="our-story" className="py-14 md:py-24 bg-gray-50 flex items-center justify-center">
+        <section id="our-story" className="py-14 md:py-24 bg-gradient-to-b from-white/80 via-blue-50/30 to-violet-50/30">
           <div className="container px-4 max-w-7xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -219,7 +335,7 @@ export default function AboutPage() {
                       {/* Image Section */}
                       <div className={`${index === 1 ? 'order-1' : 'order-2'}`}>
                         <Image
-                          src={`/story_${index + 1}.webp`}
+                          src="/placeholder_landscape.svg"
                           width={400}
                           height={300}
                           alt={title}
@@ -234,133 +350,82 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section id="our-values" className="py-14 md:py-24 bg-white flex items-center justify-center">
-          <div className="container px-4 mx-auto max-w-7xl">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-zinc-900">Our Values</h2>
-              <p className="text-xl text-zinc-600 mb-4">At Everything Talent, our core values drive everything we do</p>
+        <section id="our-values" className="py-20 bg-gradient-to-br from-purple-50/30 via-white to-yellow-50/30">
+          <div className="container mx-auto px-4 max-w-7xl">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-4xl font-bold tracking-tight sm:text-5xl mb-4 text-zinc-900">Our Core Values</h2>
+              <p className="text-xl text-zinc-600 max-w-3xl mx-auto">
+                At Everything Talent, our values are the foundation of our culture and guide every decision we make.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {values.map((value, index) => (
+                <motion.div
+                  key={value.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <Card className="h-full bg-white/80 backdrop-blur-sm hover:shadow-lg hover:shadow-purple-100/50 transition-all duration-300 border-purple-100/50">
+                    <CardHeader>
+                      <div className="w-16 h-16 mx-auto rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                        {value.icon}
+                      </div>
+                      <CardTitle className="text-center text-xl">{value.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-center text-zinc-600">{value.description}</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
             </div>
-            
-            {/* Values Layout Container */}
-            <div className="relative w-full max-w-[1200px] h-[1200px] mx-auto">
-              {/* Center Image */}
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-                <Image
-                  src="/business-person-futuristic-business-environment.webp"
-                  width={500}    // Increased to 500
-                  height={500}   // Increased to 500
-                  alt="Futuristic Business Environment"
-                  className="shadow-lg"
-                />
-              </div>
 
-              {/* Values Cards */}
-              {/* Customer Success - Top */}
-              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-[10%]">
-                <Card className="w-64 h-64 bg-white">  {/* Removed shadow-sm */}
-                  <CardHeader>
-                    <div className="w-16 h-16 mx-auto rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                      <ThumbsUp className="h-10 w-10 text-primary" />
-                    </div>
-                    <CardTitle className="text-center">Customer Success</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-center text-sm text-muted-foreground">
-                      We prioritize our customers' success above all else, ensuring they achieve their hiring goals efficiently.
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
+            {/* Add commitment card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="mt-16 text-center"
+            >
+              <Card className="bg-gradient-to-br from-purple-600 via-blue-600 to-yellow-500 text-white p-8">
+                <CardHeader>
+                  <CardTitle className="text-2xl font-bold mb-4">Our Commitment to Excellence</CardTitle>
+                  <CardDescription className="text-primary-foreground/80">
+                    We're dedicated to revolutionizing the recruitment industry through our innovative solutions and unwavering commitment to our values.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex justify-center mt-6">
+                    <Image
+                      src="/placeholder_landscape.svg"
+                      width={400}
+                      height={300}
+                      alt="Futuristic Business Environment"
+                      className="rounded-lg shadow-lg"
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
 
-              {/* Innovation - Left Top */}
-              <div className="absolute top-[25%] left-0">
-                <Card className="w-64 h-64 bg-white">
-                  <CardHeader>
-                    <div className="w-16 h-16 mx-auto rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                      <Rocket className="h-10 w-10 text-primary" />
-                    </div>
-                    <CardTitle className="text-center">Innovation</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-center text-sm text-muted-foreground">
-                      We constantly push the boundaries of what's possible in recruitment technology.
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Simplicity - Left Bottom */}
-              <div className="absolute bottom-[25%] left-0">
-                <Card className="w-64 h-64 bg-white">
-                  <CardHeader>
-                    <div className="w-16 h-16 mx-auto rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                      <Layers className="h-10 w-10 text-primary" />
-                    </div>
-                    <CardTitle className="text-center">Simplicity</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-center text-sm text-muted-foreground">
-                      We believe in making complex processes simple and user-friendly.
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Transparency - Right Top */}
-              <div className="absolute top-[25%] right-0">
-                <Card className="w-64 h-64 bg-white">
-                  <CardHeader>
-                    <div className="w-16 h-16 mx-auto rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                      <Eye className="h-10 w-10 text-primary" />
-                    </div>
-                    <CardTitle className="text-center">Transparency</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-center text-sm text-muted-foreground">
-                      We maintain open and honest communication with our clients and within our team.
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Inclusivity - Right Bottom */}
-              <div className="absolute bottom-[25%] right-0">
-                <Card className="w-64 h-64 bg-white">
-                  <CardHeader>
-                    <div className="w-16 h-16 mx-auto rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                      <Users className="h-10 w-10 text-primary" />
-                    </div>
-                    <CardTitle className="text-center">Inclusivity</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-center text-sm text-muted-foreground">
-                      We champion diversity and ensure our tools promote fair and unbiased hiring.
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Security - Bottom */}
-              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-[10%]">
-                <Card className="w-64 h-64 bg-white">
-                  <CardHeader>
-                    <div className="w-16 h-16 mx-auto rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                      <Shield className="h-10 w-10 text-primary" />
-                    </div>
-                    <CardTitle className="text-center">Security</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-center text-sm text-muted-foreground">
-                      We prioritize the protection of our clients' data and maintain the highest security standards.
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
+            {/* Add Learn More button */}
+            <div className="mt-16 text-center">
+              <Button size="lg" className="group">
+                Learn More About Our Approach
+                <ChevronRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition" />
+              </Button>
             </div>
           </div>
         </section>
 
-        <section id="our-experts" className="py-16 bg-gradient-to-b from-white via-gray-50 to-white">
+        <section id="our-experts" className="py-16 bg-gradient-to-br from-white via-purple-50/20 to-yellow-50/20">
           <div className="container mx-auto px-4 max-w-7xl">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -486,7 +551,7 @@ export default function AboutPage() {
         </section>
 
         {/* Our Culture Section */}
-        <section className="py-12 bg-white flex items-center justify-center">
+        <section className="py-12 bg-gradient-to-b from-blue-50/30 to-white">
           <div className="container px-4 mx-auto max-w-7xl">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -551,7 +616,8 @@ export default function AboutPage() {
         </section>
 
         {/* Journey section - updated timeline styling */}
-        <section id="our-journey" className="bg-white pt-[2rem] md:py-[4rem] flex items-center justify-center"> {/* Light background */}
+        <section id="our-journey" className="relative bg-gradient-to-b from-blue-50/20 to-white">
+          <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
           <div className="w-full md:container px-4 sm:px-6 max-w-7xl mx-auto">
             <div className="flex justify-center md:container px-4 sm:px-6 mb-6 md:mb-[10rem]">
               <motion.div
@@ -578,13 +644,13 @@ export default function AboutPage() {
                       </div>
                     </div>
                     <div className={`relative flex -mt-6 h-fit md:w-[90%] lg:w-[80%] ${index % 2 === 0 ? 'justify-end' : 'self-end'} z-20`}>
-                      <div className="relative border border-blue-300 dark:border-[#3577f39a] py-4 px-8 max-w-[24rem] bg-gradient-to-br from-black via-violet-900 to-violet-500 transition-all duration-500 shadow-lg hover:shadow-[0_4px_8px_0_rgba(75,0,130,0.5)] rounded-lg">
+                      <div className="relative border border-purple-300 py-4 px-8 max-w-[24rem] bg-gradient-to-br from-purple-900 via-blue-800 to-yellow-700 transition-all duration-500 shadow-lg hover:shadow-[0_4px_8px_0_rgba(147,51,234,0.5)] rounded-lg">
                         <p className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-400 font-bold text-xl">
                           {event.date}
                         </p>
                         <div>
                           <Image
-                            src={`/ai1.webp?height=212&width=317&text=${event.title}`}
+                            src="/placeholder_landscape.svg"
                             width={317}
                             height={212}
                             alt={event.title}
@@ -600,7 +666,7 @@ export default function AboutPage() {
                   </div>
                 ))}
               </div>
-              <div style={{ height: 'calc(100% + 176px)' }} className="absolute -mt-40 left-1/2 transform -translate-x-1/2 top-0 overflow-hidden w-4 h-[calc(100%+10rem)] bg-gradient-to-r from-sky-100 via-sky-300 to-sky-500 [mask-image:linear-gradient(to_bottom,transparent_0%,black_1%,black_99%,transparent_100%)]">
+              <div style={{ height: 'calc(100% + 176px)' }} className="absolute -mt-40 left-1/2 transform -translate-x-1/2 top-0 overflow-hidden w-4 h-[calc(100%+10rem)] bg-gradient-to-r from-purple-100 via-blue-300 to-yellow-200">
                 <div style={{ height: '0px', opacity: 1 }} className="absolute inset-x-0 top-8 w-4 bg-gradient-to-t from-sky-500 via-sky-400 to-transparent from-[0%] via-[10%] rounded-sm"></div>
               </div>
             </div>
@@ -609,7 +675,7 @@ export default function AboutPage() {
       </main>
 
       {/* Create footer */}
-      <footer className="bg-[#000000] border-t py-12">
+      <footer className="bg-gradient-to-br from-purple-900 via-blue-900 to-black border-t py-12">
         <div className="container px-4 mx-auto max-w-7xl">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
             {/* Company Info */}
@@ -695,7 +761,7 @@ export default function AboutPage() {
 
       {/* Add a floating scroll progress bar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-blue-600 z-50 origin-left"
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 via-blue-600 to-yellow-500 z-50 origin-left"
         style={{ scaleX }}
       />
     </div>
